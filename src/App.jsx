@@ -35,6 +35,17 @@ export const App = () => {
     setIncompleteTodos(newTodos);
   };
 
+  const onClickComplete = (index) => {
+    //完了ボタンが押された時の配列のインデックスを未完了のTODOから削除
+    const newInCompleteTodos = [...incompleteTodos];
+    newInCompleteTodos.splice(index, 1);
+    setIncompleteTodos(newInCompleteTodos);
+
+    //削除したTODOを完了のTODOに追加
+    const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+    setCompleteTodos(newCompleteTodos);
+  };
+
   return (
     <>
       <div className="input-area">
@@ -54,7 +65,7 @@ export const App = () => {
               <li key={todo}>
                 <div className="list-row">
                   <p>{todo}</p>
-                  <button>完了</button>
+                  <button onClick={() => onClickComplete(index)}>完了</button>
                   {/* onClick内で引数を渡す場合はアロー関数を設定する */}
                   <button onClick={() => onClickDelete(index)}>削除</button>
                 </div>
@@ -65,7 +76,6 @@ export const App = () => {
       </div>
       <div className="complete-area">
         <p className="title">完了のTODO</p>
-        <div></div>
         <ul>
           {completeTodos.map((todo) => {
             return (
