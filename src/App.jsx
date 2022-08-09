@@ -27,6 +27,14 @@ export const App = () => {
     setTodoText("");
   };
 
+  //タスクの削除機能
+  const onClickDelete = (index) => {
+    const newTodos = [...incompleteTodos];
+    //spliceを使用して配列から受け取った配列のインデックスを削除
+    newTodos.splice(index, 1);
+    setIncompleteTodos(newTodos);
+  };
+
   return (
     <>
       <div className="input-area">
@@ -41,13 +49,14 @@ export const App = () => {
         <p className="title">未完了のTODO</p>
         <div></div>
         <ul>
-          {incompleteTodos.map((todo) => {
+          {incompleteTodos.map((todo, index) => {
             return (
               <li key={todo}>
                 <div className="list-row">
                   <p>{todo}</p>
                   <button>完了</button>
-                  <button>削除</button>
+                  {/* onClick内で引数を渡す場合はアロー関数を設定する */}
+                  <button onClick={() => onClickDelete(index)}>削除</button>
                 </div>
               </li>
             );
