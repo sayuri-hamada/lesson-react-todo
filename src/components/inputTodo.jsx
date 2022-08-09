@@ -9,11 +9,19 @@ const style = {
 };
 export const InputTodo = (props) => {
   //propsで親から関数を受け取って処理に入れる
-  const { todoText, onChange, onClick } = props;
+  const { todoText, onChange, onClick, disabled } = props;
   return (
     <div style={style}>
-      <input placeholder="TODOを入力" value={todoText} onChange={onChange} />
-      <button onClick={onClick}>追加</button>
+      {/* 未完了のTODOが５個以上になった時にdisabledする関数を受け取る */}
+      <input
+        disabled={disabled}
+        placeholder="TODOを入力"
+        value={todoText}
+        onChange={onChange}
+      />
+      <button onClick={onClick} disabled={disabled}>
+        追加
+      </button>
     </div>
   );
 };

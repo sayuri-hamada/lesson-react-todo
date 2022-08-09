@@ -60,11 +60,17 @@ export const App = () => {
   return (
     <>
       {/* InputTodoコンポーネントに親要素の関数をpropsで渡す */}
+      {/* 未完了のTODOが５つ以上になった時にdisabledを渡す */}
       <InputTodo
         todoText={todoText}
         onChange={onChangeTodoText}
         onClick={onClickAdd}
+        disabled={incompleteTodos.length >= 5}
       />
+      {/* 未完了のTODOが５つ以上になった時にメッセージを表示する */}
+      {incompleteTodos.length >= 5 && (
+        <p style={{ color: "red" }}>登録できるtodoは５個までです。</p>
+      )}
       <InCompleteTodos
         todos={incompleteTodos}
         onClickComplete={onClickComplete}
