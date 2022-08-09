@@ -5,10 +5,7 @@ export const App = () => {
   //入力するTODOの値
   const [todoText, setTodoText] = useState("");
   //未完了のTODOリスト
-  const [incompleteTodos, setIncompleteTodos] = useState([
-    "ああああ",
-    "いいいい"
-  ]);
+  const [incompleteTodos, setIncompleteTodos] = useState([]);
   //完了のTODOリスト
   const [completeTodos, setCompleteTodos] = useState(["うううう"]);
 
@@ -35,6 +32,7 @@ export const App = () => {
     setIncompleteTodos(newTodos);
   };
 
+  //タスクの完了機能
   const onClickComplete = (index) => {
     //完了ボタンが押された時の配列のインデックスを未完了のTODOから削除
     const newInCompleteTodos = [...incompleteTodos];
@@ -44,6 +42,16 @@ export const App = () => {
     //削除したTODOを完了のTODOに追加
     const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
     setCompleteTodos(newCompleteTodos);
+  };
+
+  //タスクの戻す機能
+  const onClickBack = (index) => {
+    const newCompleteTodos = [...completeTodos];
+    newCompleteTodos.splice(index, 1);
+    setCompleteTodos(newCompleteTodos);
+
+    const newInCompleteTodos = [...incompleteTodos, completeTodos[index]];
+    setIncompleteTodos(newInCompleteTodos);
   };
 
   return (
@@ -77,12 +85,12 @@ export const App = () => {
       <div className="complete-area">
         <p className="title">完了のTODO</p>
         <ul>
-          {completeTodos.map((todo) => {
+          {completeTodos.map((todo, index) => {
             return (
               <li key={todo}>
                 <div className="list-row">
                   <p>{todo}</p>
-                  <button>戻す</button>
+                  <button onClick={() => onClickBack(index)}>戻す</button>
                 </div>
               </li>
             );
